@@ -5,9 +5,10 @@ import limax from 'limax'
 import { Config, Global } from '../extension'
 import { ExtractInfo } from './types'
 import { CurrentFile } from './CurrentFile'
+import { Translator } from './Translator'
 import { changeCase } from '~/utils/changeCase'
 
-export function generateKeyFromText(text: string, filepath?: string, reuseExisting = false, usedKeys: string[] = []): string {
+export async function generateKeyFromText(text: string, filepath?: string, reuseExisting = false, usedKeys: string[] = []): Promise<string> {
   let key: string | undefined
 
   // already existed, reuse the key
@@ -28,6 +29,26 @@ export function generateKeyFromText(text: string, filepath?: string, reuseExisti
   }
   else if (keygenStrategy === 'source') {
     key = text
+  }
+  else if (keygenStrategy === 'english') {
+    try {
+      // 直接调用翻译文本
+      const result = await Translator.translateText(text, Config.sourceLanguage, 'en')
+      if (result) {
+        key = limax(result, {
+          separator: '-',
+          maintainCase: false,
+          tone: false,
+        })
+      }
+      else {
+        key = 'key'
+      }
+    }
+    catch (e) {
+      console.error('Translation failed:', e)
+      key = 'key'
+    }
   }
   else {
     text = text.replace(/\$/g, '')

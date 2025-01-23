@@ -1,8 +1,8 @@
 {
-  "publisher": "lokalise",
-  "name": "i18n-ally",
+  "publisher": "ShenLin",
+  "name": "i18n-ally-shenlin",
   "version": "2.13.1",
-  "displayName": "i18n Ally",
+  "displayName": "i18n Ally ShenLin",
   "description": "🌍 All in one i18n extension for VS Code",
   "keywords": [
     "vue",
@@ -1193,7 +1193,8 @@
             "slug",
             "random",
             "empty",
-            "source"
+            "source",
+            "english"
           ],
           "description": "%config.keygen_strategy%"
         },

@@ -300,7 +300,7 @@ export class Translator {
     }
   }
 
-  private static async translateText(text: string, from: string, to: string) {
+  public static async translateText(text: string, from: string, to: string) {
     const engines = Config.translateEngines
     let trans_result: TranslateResult | undefined
 
